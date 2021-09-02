@@ -69,6 +69,18 @@ router.get('/:id/edit', async (req,res,next)=> {
         return next(error);
     }
 });
+
+router.post('/product',upload.single('avatar_of_product'), async (req,res,next)=> {
+    try {
+        req.body.avatar_of_product = req.file.filename;
+        const product = await Product.create(req.body);
+        res.redirect('/admin');
+    } catch (error) {
+        return next(error);
+    }
+});
+
+
 router.post('/:id',upload.single('avatar_of_product') ,async (req,res,next)=> {
     try {
         req.body.avatar_of_product = req.file.filename;
@@ -95,16 +107,6 @@ router.get('/product/new', async (req,res,next)=> {
         return next(error);
     }
 })
-
-router.post('/product',upload.single('avatar_of_product'), async (req,res,next)=> {
-    try {
-        req.body.avatar_of_product = req.file.filename;
-        const product = await Product.create(req.body);
-        res.redirect('/admin');
-    } catch (error) {
-        return next(error);
-    }
-});
 
 
 
